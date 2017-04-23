@@ -99,16 +99,14 @@ function Simon() {
 	var simonNotes = []
 	var userNotes = []
 
-	// When enabled, will play the game in a loop.
-	var enabled = true;
-
 	// Starts the game by playing a note.
 	this.startNextRound = function () {
 
-		// Play a random note.
+		// Add a random note.
 		var nextNote = getNextNote();
 		simonNotes.push(nextNote)
 
+		// Play all notes.
 		simonNotes.forEach(function(key, i) {
 				setTimeout(notes[key].play.bind(key), i * NOTE_DURATION);
 			}
@@ -126,16 +124,12 @@ function Simon() {
 				setTimeout(startNextRound, REPLAY_LENGTH);
 				userNotes = []
 			}
+
 		} else {
 			alert("Oops! Lets play again.")
 			restart()
 		}
 	}.bind(this)
-
-	// Disables simon.
-	this.stop = function() {
-		enabled = false
-	}
 
 	// Returns true if the user entered a valid note.
 	this.testProgress = function () {
@@ -152,7 +146,6 @@ function Simon() {
 	// Gets a new note (randomly)
 	this.getNextNote = function() {
 		var index = Math.floor(Math.random() * (numNotes))
-		console.log(index)
 		return KEYS[index];
 	}
 
