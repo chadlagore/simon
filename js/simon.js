@@ -1,5 +1,6 @@
 var KEYS = ['c', 'd', 'e', 'f'];
 var NOTE_DURATION = 500;
+var REPLAY_LENGTH = 1000;
 var ECHO_LENGTH = 2500;
 
 simon_on = true;
@@ -120,13 +121,14 @@ function Simon() {
 
 		if(testProgress()) {
 
-			// If round over, start next round in 2.5s.
+			// If round over, start next round in REPLAY_LENGTH.
 			if (userNotes.length == simonNotes.length) {
-				setTimeout(startNextRound, ECHO_LENGTH);
+				setTimeout(startNextRound, REPLAY_LENGTH);
 				userNotes = []
 			}
 		} else {
-			alert("failure!")
+			alert("Oops! Lets play again.")
+			restart()
 		}
 	}.bind(this)
 
@@ -154,6 +156,14 @@ function Simon() {
 		return KEYS[index];
 	}
 
+	// Restarts game.
+	this.restart = function() {
+		simonNotes = []
+		userNotes = []
+		setTimeout(startNextRound, REPLAY_LENGTH);
+	}
+
+	// Start the first round.
 	startNextRound()
 }
 
